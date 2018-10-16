@@ -30,8 +30,3 @@ class Schedule(models.Model):
     breakfast = models.BooleanField(default=False)
     lunch = models.BooleanField(default=False)
     dinner = models.BooleanField(default=False)
-
-class Test(models.Model):
-    hi = models.BooleanField()
-
-
