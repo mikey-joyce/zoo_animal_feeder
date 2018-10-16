@@ -22,4 +22,4 @@ class ScheduleForm(forms.ModelForm):
 	class Meta:
 		model = Schedule
 		fields = ['breakfast', 'lunch', 'dinner']
-		labels = {}
+		labels = {'breakfast':'','lunch':'','dinner':''}
