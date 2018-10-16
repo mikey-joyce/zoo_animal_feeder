@@ -1,0 +1,20 @@
+{% extends 'zoo_animal_feeders/base.html' %}
+
+{% block content %}
+
+  <p>Animal Type: {{ animal_type }}</p>
+  <p>Animals:</p>
+  <p><a href="{% url 'zoo_animal_feeders:new_animal' animal_type.id %}">add new animal</a></p>
+  <ul>
+  {% for animal in animals %}
+    <li>
+      <p>{{ animal }}</p>
+      <p>{{ animal.breakfast }}{{ animal.lunch }}{{ animal.dinner }}</p>
+      <p><a href="{% url 'zoo_animal_feeders:edit_animal' animal.id %}">edit animal</a></p>
+    </li>
+  {% empty %}
+    <li>There are no animals for this animal type yet.</li>
+  {% endfor %}
+  </ul>
+
+{% endblock content %}

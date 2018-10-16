@@ -1,0 +1,13 @@
+{% extends "zoo_animal_feeders/base.html" %}
+
+{% block content %}
+
+  <p><a href="{% url 'zoo_animal_feeders:animal_type' animal_type.id %}">{{ animal_type }}</a></p>
+  <p>Add new animal</p>
+  <form action="{% url 'zoo_animal_feeders:new_animal' animal_type.id %}" method='post'>
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button name='submit'>add animal</button>
+  </form>
+
+{% endblock content %}
