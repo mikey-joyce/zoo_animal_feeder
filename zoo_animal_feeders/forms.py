@@ -6,14 +6,14 @@ class TypeForm(forms.ModelForm):
 	
 	class Meta:
 		model = AnimalType
-		fields = ['a_type', 'date_added']
+		fields = ['a_type']
 		labels = {'a_type':''}
 
 class AnimalForm(forms.ModelForm):
 	
 	class Meta:
 		model = Animal
-		fields = ['animal_type', 'name', 'date_added']
+		fields = ['animal_type', 'name']
 		labels = {'name':''}
 		widgets = {'name': forms.Textarea(attrs={'cols':40})}
 

@@ -1,0 +1,14 @@
+{% extends 'zoo_animal_feeders/base.html' %}
+
+{% block content %}
+
+  <p><a href="{% url 'zoo_animal_feeders:animal' animal.id %}">{{ animal }}</a></p>
+
+  <p>Edit schedule:</p>
+  <form action="{% url 'zoo_animal_feeders:edit_schedule' schedule.id %}" method='post'>
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button name="submit">save changes</button>
+  </form>
+
+{% endblock content %}

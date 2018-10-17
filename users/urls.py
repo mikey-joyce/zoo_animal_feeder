@@ -1,7 +1,7 @@
 """Defines the URL patterns of the users"""
 
 from django.urls import path
-from django.contrib.auth.views import login
+from django.contrib.auth import login
 from . import views
 
 app_name = 'users'
