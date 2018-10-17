@@ -8,8 +8,7 @@
   <ul>
   {% for animal in animals %}
     <li>
-      <p>{{ animal }}</p>
-      <p>{{ animal.breakfast }}{{ animal.lunch }}{{ animal.dinner }}</p>
+      <p><a href="{% url 'zoo_animal_feeders:new_schedule' animal.id %}">{{ animal }}</a></p>
       <p><a href="{% url 'zoo_animal_feeders:edit_animal' animal.id %}">edit animal</a></p>
     </li>
   {% empty %}

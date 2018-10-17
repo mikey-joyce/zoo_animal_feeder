@@ -1,0 +1,19 @@
+{% extends 'zoo_animal_feeders/base.html' %}
+
+{% block content %}
+
+  <p>Animal: {{ animal }}</p>
+  <p>Schedule:</p>
+  <p><a href="{% url 'zoo_animal_feeders:new_schedule' animal.id %}">add new schedule</a></p>
+  <ul>
+  {% for schedule in schedules %}
+    <li>
+      <p>{{ schedule }}</p>
+      <p><a href="{% url 'zoo_animal_feeders:edit_schedule' animal.id %}">edit schedule</a></p>
+    </li>
+  {% empty %}
+    <li>There are no schedules for this animal yet.</li>
+  {% endfor %}
+  </ul>
+
+{% endblock content %}
