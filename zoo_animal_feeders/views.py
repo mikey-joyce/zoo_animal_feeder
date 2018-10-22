@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponseRedirect
 from django.urls import reverse
+from django.contrib.auth.decorators import login_required
 
 from .models import AnimalType, Animal, Schedule
 from .forms import TypeForm, AnimalForm, ScheduleForm
@@ -11,12 +12,14 @@ def index(request):
     """Renders Home Page"""
     return render(request, 'zoo_animal_feeders/index.html')
 
+@login_required
 def animal_types(request):
     """Show all animal types"""
     animal_types = AnimalType.objects.order_by('date_added')
     context = {'animal_types': animal_types}
     return render(request, 'zoo_animal_feeders/animal_types.html', context)
 
+@login_required
 def animal_type(request, animal_type_id):
     """Shows a single animal type and all of the animals associated"""
     animal_type = AnimalType.objects.get(id=animal_type_id)
@@ -24,6 +27,7 @@ def animal_type(request, animal_type_id):
     context = {'animal_type':animal_type, 'animals':animals}
     return render(request, 'zoo_animal_feeders/animal_type.html', context)
 
+@login_required
 def new_animal_type(request):
     """Add new animal type"""
     if request.method != 'POST':
@@ -39,6 +43,7 @@ def new_animal_type(request):
     context = {'form': form}
     return render(request, 'zoo_animal_feeders/new_animal_type.html', context)
 
+@login_required
 def new_animal(request, animal_type_id):
     """Add a new animal to an animal type"""
     animal_type = AnimalType.objects.get(id=animal_type_id)
@@ -58,6 +63,7 @@ def new_animal(request, animal_type_id):
     context = {'animal_type':animal_type, 'form':form}
     return render(request, 'zoo_animal_feeders/new_animal.html', context)
 
+@login_required
 def edit_animal(request, animal_id):
     """edit existing animal"""
     animal = Animal.objects.get(id=animal_id)
@@ -76,6 +82,7 @@ def edit_animal(request, animal_id):
     context = {'animal':animal, 'animal_type':animal_type, 'form':form}
     return render(request, 'zoo_animal_feeders/edit_animal.html', context)
 
+@login_required
 def new_schedule(request, animal_id):
     """add a new schedule for the animal"""
     animal = Animal.objects.get(id=animal_id)
@@ -93,6 +100,7 @@ def new_schedule(request, animal_id):
             new_schedule.save()
             return HttpResponseRedirect(reverse('zoo_animal_feeders:animal', args=[animal_id]))
 
+@login_required
 def edit_schedule(request, schedule_id):
     """edit an existing animals schedule"""
     schedule = Schedule.objects.get(id=schedule_id)

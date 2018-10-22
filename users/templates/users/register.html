@@ -1,0 +1,12 @@
+{% extends "zoo_animal_feeders/base.html" %}
+
+{% block content %}
+
+  <form method="post" action="{% url 'users:register' %}">
+  	{% csrf_token %}
+  	{{ form.as_p }}
+  	<button name="submit">register</button>
+  	<input type="hidden" name="next" value="{% url 'zoo_animal_feeders:index' %}"/>
+  </form>
+
+{% endblock content %}
