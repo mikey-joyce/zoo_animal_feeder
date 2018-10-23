@@ -1,3 +1,18 @@
+{% load bootstrap3 %}
+
+<!DOCTYPE html>
+<html lang='en'>
+  <head>
+  	<meta charset="utf-8">
+  	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+  	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+  	<title>Animal Feeder</title>
+
+  	{% bootstrap_css %}
+  	{% bootstrap_javascript %}
+  </head>
+
 <p>
   <a href="{% url 'zoo_animal_feeders:index' %}">Animal Feeder</a> -
   <a href="{% url 'zoo_animal_feeders:animal_types' %}">Animal Types</a> -

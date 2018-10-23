@@ -26,6 +26,7 @@ class Animal(models.Model):
 
 class Schedule(models.Model):
     """Model for animal eating schedule"""
+    animal = models.ForeignKey('Animal', on_delete=models.CASCADE)
     breakfast = models.BooleanField(default=False)
     lunch = models.BooleanField(default=False)
     dinner = models.BooleanField(default=False)

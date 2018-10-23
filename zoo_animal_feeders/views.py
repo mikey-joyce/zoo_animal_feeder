@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, Http404
 from django.urls import reverse
 from django.contrib.auth.decorators import login_required
 
@@ -15,7 +15,7 @@ def index(request):
 @login_required
 def animal_types(request):
     """Show all animal types"""
-    animal_types = AnimalType.objects.order_by('date_added')
+    animal_types = AnimalType.objects.filter(owner=request.user).order_by('date_added')
     context = {'animal_types': animal_types}
     return render(request, 'zoo_animal_feeders/animal_types.html', context)
 
@@ -23,9 +23,21 @@ def animal_types(request):
 def animal_type(request, animal_type_id):
     """Shows a single animal type and all of the animals associated"""
     animal_type = AnimalType.objects.get(id=animal_type_id)
+    #animal type belongs to user
+    if animal_type.owner != request.user:
+        raise Http404
+
     animals = animal_type.animals_set.order_by('-date_added')
     context = {'animal_type':animal_type, 'animals':animals}
     return render(request, 'zoo_animal_feeders/animal_type.html', context)
+
+@login_required
+def animal(request, animal_id):
+    """shows a single animal and the schedule associated"""
+    animal = Animal.objects.get(id=animal_id)
+    schedule = animal.schedule_set.order_by('-date_added')
+    context = {'animal':animal, 'schedule':schedule}
+    return render(request, 'zoo_animal_feeders/animal.html', context)
 
 @login_required
 def new_animal_type(request):
@@ -37,7 +49,9 @@ def new_animal_type(request):
         #POST submitted, gives data
         form = TypeForm(data=request.POST)
         if form.is_valid():
-            form.save()
+            new_animal_type = form.save(commit=False)
+            new_animal_type.owner = request.user
+            new_animal_type.save()
             return HttpResponseRedirect(reverse('zoo_animal_feeders:animal_types'))
 
     context = {'form': form}
@@ -68,6 +82,8 @@ def edit_animal(request, animal_id):
     """edit existing animal"""
     animal = Animal.objects.get(id=animal_id)
     animal_type = animal.animal_type
+    if animal_type.owner != request.user:
+        raise Http404
 
     if request.method != 'POST':
         #prefill form with current animal name
@@ -100,6 +116,9 @@ def new_schedule(request, animal_id):
             new_schedule.save()
             return HttpResponseRedirect(reverse('zoo_animal_feeders:animal', args=[animal_id]))
 
+    context = {'animal':animal, 'animal_type':animal_type, 'form':form}
+    return render(request, 'zoo_animal_feeders/new_schedule.html', context)
+
 @login_required
 def edit_schedule(request, schedule_id):
     """edit an existing animals schedule"""
@@ -114,4 +133,7 @@ def edit_schedule(request, schedule_id):
         if form.is_valid():
             form.save()
             return HttpResponseRedirect(reverse('zoo_animal_feeders:animal', args=[animal_id]))
+
+    context = {'schedule':schedule, 'animal':animal, 'animal_type':animal_type, 'form':form}
+    return render(request, 'zoo_animal_feeders/edit_schedule.html', context)
 
