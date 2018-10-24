@@ -6,7 +6,7 @@ from django.contrib.auth.models import User
 class AnimalType(models.Model):
     """Type of animal that can classify the animal"""
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
-    a_type = models.CharField(max_length=50)
+    a_type = models.CharField(max_length=50, default='')
     date_added = models.DateField(auto_now_add=True)
 
     def __str__(self):
@@ -15,7 +15,7 @@ class AnimalType(models.Model):
 class Animal(models.Model):
     """The actual animal, embeded in animaltype"""
     animal_type = models.ForeignKey(AnimalType, on_delete=models.CASCADE)
-    name = models.CharField(max_length=60)
+    name = models.CharField(max_length=60, default='')
     date_added = models.DateField(auto_now_add=True)
 
     def __str__(self):

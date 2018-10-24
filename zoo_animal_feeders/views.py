@@ -27,7 +27,7 @@ def animal_type(request, animal_type_id):
     if animal_type.owner != request.user:
         raise Http404
 
-    animals = animal_type.animals_set.order_by('-date_added')
+    animals = animal_type.animal_set.order_by('-date_added')
     context = {'animal_type':animal_type, 'animals':animals}
     return render(request, 'zoo_animal_feeders/animal_type.html', context)
 

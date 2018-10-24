@@ -1,13 +1,20 @@
 {% extends "zoo_animal_feeders/base.html" %}
+{% load bootstrap3 %}
+
+{% block header %}
+  <h2><a href="{% url 'zoo_animal_feeders:animal' animal.id %}">{{ animal }}</a></h2>
+  <h2>Add new schedule:</h2>
+{% endblock header %}
 
 {% block content %}
 
-  <p><a href="{% url 'zoo_animal_feeders:animal' animal.id %}">{{ animal }}</a></p>
-  <p>Add new schedule</p>
-  <form action="{% url 'zoo_animal_feeders:new_schedule' animal.id %}" method='post'>
+  <form action="{% url 'zoo_animal_feeders:new_schedule' animal.id %}" method="post" class="form">
     {% csrf_token %}
-    {{ form.as_p }}
-    <button name='submit'>add schedule</button>
+    {% bootstrap_form form %}
+
+    {% buttons %}
+      <button name='submit'>add schedule</button>
+    {% endbuttons %}
   </form>
 
 {% endblock content %}

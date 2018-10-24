@@ -1,11 +1,18 @@
 {% extends "zoo_animal_feeders/base.html" %}
+{% load bootstrap3 %}
+
+{% block header %}
+  <h2>Add a new animal type:</h2>
+{% endblock header %}
 
 {% block content %}
-  <p>Add a new animal type:</p>
-  <form action="{% url 'zoo_animal_feeders:new_animal_type' %}" method='post'>
+  <form action="{% url 'zoo_animal_feeders:new_animal_type' %}" method='post' class="form">
     {% csrf_token %}
-    {{form.as_p}}
-    <button name="submit">add animal type</button>
+    {% bootstrap_form form %}
+
+    {% buttons %}
+      <button name="submit">add animal type</button>
+    {% endbuttons %}
   </form>
 
 {% endblock content %}

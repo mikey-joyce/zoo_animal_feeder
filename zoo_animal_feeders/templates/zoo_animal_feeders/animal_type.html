@@ -1,19 +1,29 @@
 {% extends 'zoo_animal_feeders/base.html' %}
 
-{% block content %}
+{% block header %}
+  <h2>{{ animal_type }}</h2>
+{% endblock header %}
 
-  <p>Animal Type: {{ animal_type }}</p>
-  <p>Animals:</p>
+
+{% block content %}
   <p><a href="{% url 'zoo_animal_feeders:new_animal' animal_type.id %}">add new animal</a></p>
-  <ul>
+  
   {% for animal in animals %}
-    <li>
-      <p><a href="{% url 'zoo_animal_feeders:new_schedule' animal.id %}">{{ animal }}</a></p>
-      <p><a href="{% url 'zoo_animal_feeders:edit_animal' animal.id %}">edit animal</a></p>
-    </li>
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3>
+          {{ animal.date_added|date:'M d, Y H:i' }}
+          <small>
+            <a href="{% url 'zoo_animal_feeders:edit_animal' animal.id %}">edit animal</a>
+          </small>
+        </h3>
+      </div>
+      <div class="panel-body">
+        {{ animal.text|linebreaks }}
+      </div>
+    </div>
   {% empty %}
     <li>There are no animals for this animal type yet.</li>
   {% endfor %}
-  </ul>
 
 {% endblock content %}

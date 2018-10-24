@@ -1,6 +1,16 @@
 {% extends 'zoo_animal_feeders/base.html' %}
 
+{% block header %}
+  <div class="jumbotron">
+  	<h1>Track your animals eating schedule</h1>
+  </div>
+{% endblock header %}
+
 {% block content %}
-  <p>Animal Feeders helps you make sure your animals are eating on a normal
-  schedule.</p>
+  <h2>
+  	<a href="{% url 'users:register' %}">Create an account</a>
+  </h2>
+  <h2>
+  	Keep your animals healthy by making sure they eat a strict amount of meals each day!
+  </h2>
 {% endblock content %}
