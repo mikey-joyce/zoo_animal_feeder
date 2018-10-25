@@ -7,7 +7,7 @@
 {% endblock header %}
 
 {% block content %}
-  <form action="{% url 'zoo_animal_feeders:new_animal' animal_type.id %}" method='post' class="form">
+  <form action="{% url 'zoo_animal_feeders:new_animal' animal_type.id %}" method="post" class="form">
     {% csrf_token %}
     {% bootstrap_form form %}
 

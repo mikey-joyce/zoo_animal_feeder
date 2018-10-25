@@ -12,8 +12,9 @@
     <div class="panel panel-default">
       <div class="panel-heading">
         <h3>
-          {{ animal.date_added|date:'M d, Y H:i' }}
+          {{ animal.name }}
           <small>
+            <a href="{% url 'zoo_animal_feeders:animal' schedule.id %}">see schedule</a>
             <a href="{% url 'zoo_animal_feeders:edit_animal' animal.id %}">edit animal</a>
           </small>
         </h3>
