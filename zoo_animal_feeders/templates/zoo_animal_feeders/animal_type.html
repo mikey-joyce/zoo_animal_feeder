@@ -14,13 +14,13 @@
         <h3>
           {{ animal.name }}
           <small>
-            <a href="{% url 'zoo_animal_feeders:animal' schedule.id %}">see schedule</a>
+            <a href="{% url 'zoo_animal_feeders:animal' animal.id %}">see schedule</a>
             <a href="{% url 'zoo_animal_feeders:edit_animal' animal.id %}">edit animal</a>
           </small>
         </h3>
       </div>
       <div class="panel-body">
-        {{ animal.text|linebreaks }}
+        {{ animal.name|linebreaks }}
       </div>
     </div>
   {% empty %}

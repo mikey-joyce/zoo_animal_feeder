@@ -6,19 +6,20 @@
 
 {% block content %}
   <p>Schedule:</p>
-  <p><a href="{% url 'zoo_animal_feeders:new_schedule' animal.id %}">add new schedule</a></p>
+  <p><a href="{% url 'zoo_animal_feeders:new_schedule' animal.id %}">add schedule</a></p>
   {% for schedule in schedules %}
     <div class="panel panel-default">
       <div class="panel-heading">
         <h3>
           <small>
-            <a href="{% url 'zoo_animal_feeders:edit_schedule' animal.id %}">edit schedule</a>
+            <a href="{% url 'zoo_animal_feeders:edit_schedule' schedule.id %}">edit schedule</a>
           </small>
         </h3>
       </div>
       <div class="panel-body">
-        <!--I need to edit the schedule right here so that it could reset everyday.-->
-        {{ schedule }}
+        {{ schedule.breakfast }}
+        {{ schedule.lunch }}
+        {{ schedule.dinner }}
       </div>
     </div>
   {% empty %}

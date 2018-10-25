@@ -13,13 +13,13 @@ class AnimalForm(forms.ModelForm):
 	
 	class Meta:
 		model = Animal
-		fields = ['animal_type', 'name']
+		fields = ['name']
 		labels = {'name':''}
-		widgets = {'name': forms.Textarea(attrs={'cols':40})}
+		#widgets = {'name': forms.Textarea(attrs={'cols':40})}
 
 class ScheduleForm(forms.ModelForm):
 
 	class Meta:
 		model = Schedule
 		fields = ['breakfast', 'lunch', 'dinner']
-		labels = {'breakfast':'','lunch':'','dinner':''}
+		labels = {'breakfast':'breakfast','lunch':'lunch','dinner':'dinner'}

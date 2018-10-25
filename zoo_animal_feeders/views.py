@@ -6,7 +6,7 @@ from django.contrib.auth.decorators import login_required
 from .models import AnimalType, Animal, Schedule
 from .forms import TypeForm, AnimalForm, ScheduleForm
 
-# Create your views here.
+#Create your views here
 
 def index(request):
     """Renders Home Page"""
@@ -35,6 +35,7 @@ def animal_type(request, animal_type_id):
 def animal(request, animal_id):
     """shows a single animal and the schedule associated"""
     animal = Animal.objects.get(id=animal_id)
+
     schedule = animal.schedule_set.order_by('-date_added')
     context = {'animal':animal, 'schedule':schedule}
     return render(request, 'zoo_animal_feeders/animal.html', context)
@@ -116,7 +117,7 @@ def new_schedule(request, animal_id):
             new_schedule.save()
             return HttpResponseRedirect(reverse('zoo_animal_feeders:animal', args=[animal_id]))
 
-    context = {'animal':animal, 'animal_type':animal_type, 'form':form}
+    context = {'animal':animal, 'form':form}
     return render(request, 'zoo_animal_feeders/new_schedule.html', context)
 
 @login_required
