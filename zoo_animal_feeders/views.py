@@ -79,6 +79,26 @@ def new_animal(request, animal_type_id):
     return render(request, 'zoo_animal_feeders/new_animal.html', context)
 
 @login_required
+def new_schedule(request, animal_id):
+    """add a new schedule for the animal"""
+    animal = Animal.objects.get(id=animal_id)
+
+    if request.method != 'POST':
+        #create 3 different checkboxes for the meals and if they check it, add that meal to their schedule
+        form = ScheduleForm()
+    else:
+        #POST data submitted
+        form = ScheduleForm(data=request.POST)
+        if form.is_valid():
+            new_schedule = form.save(commit=False)
+            new_schedule.animal = animal
+            new_schedule.save()
+            return HttpResponseRedirect(reverse('zoo_animal_feeders:animal', args=[animal_id]))
+
+    context = {'animal':animal, 'form':form}
+    return render(request, 'zoo_animal_feeders/new_schedule.html', context)
+
+@login_required
 def edit_animal(request, animal_id):
     """edit existing animal"""
     animal = Animal.objects.get(id=animal_id)
@@ -98,27 +118,6 @@ def edit_animal(request, animal_id):
 
     context = {'animal':animal, 'animal_type':animal_type, 'form':form}
     return render(request, 'zoo_animal_feeders/edit_animal.html', context)
-
-@login_required
-def new_schedule(request, animal_id):
-    """add a new schedule for the animal"""
-    animal = Animal.objects.get(id=animal_id)
-    animal_type = animal.animal_type
-
-    if request.method != 'POST':
-        #create 3 different checkboxes for the meals and if they check it, add that meal to their schedule
-        form = ScheduleForm()
-    else:
-        #POST data submitted
-        form = ScheduleForm(data=request.POST)
-        if form.is_valid():
-            new_schedule = form.save(commit=False)
-            new_schedule.animal = animal
-            new_schedule.save()
-            return HttpResponseRedirect(reverse('zoo_animal_feeders:animal', args=[animal_id]))
-
-    context = {'animal':animal, 'form':form}
-    return render(request, 'zoo_animal_feeders/new_schedule.html', context)
 
 @login_required
 def edit_schedule(request, schedule_id):

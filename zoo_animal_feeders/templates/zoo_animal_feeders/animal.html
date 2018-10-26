@@ -6,8 +6,8 @@
 
 {% block content %}
   <p>Schedule:</p>
-  <p><a href="{% url 'zoo_animal_feeders:new_schedule' animal.id %}">add schedule</a></p>
-  {% for schedule in schedules %}
+  {% for s in schedules %}
+  <!--None of this will render bc if you add a schedule it doesn't actually add a schedule-->
     <div class="panel panel-default">
       <div class="panel-heading">
         <h3>
@@ -18,13 +18,39 @@
       </div>
       <div class="panel-body">
         <!--This is where I need to add the checkboxes that you can check and stay checked until midnight each night-->
-        <!--{{ schedule.breakfast }}
-        {{ schedule.lunch }}
-        {{ schedule.dinner }}-->
+        <ul>
+          {% if s.breakfast == True %}
+            <li>Breakfast has been served!</li>
+          {% endif %}
+          {% if s.lunch == True %}
+            <li>Lunch has been served!</li>
+          {% endif %}
+          {% if s.dinner == True %}
+            <li>Dinner has been served!</li>
+          {% endif %}
+        </ul>
       </div>
     </div>
   {% empty %}
-    <li>There are no schedules for this animal yet.</li>
+  <!--so basically I have to default every animal and force them to eat breakfast, lunch, AND dinner
+
+  <p><a href="{% url 'zoo_animal_feeders:new_schedule' animal.id %}">add schedule</a></p>-->
+
+  <!--I couldn't figure out how to create a schedule object that would produce a checkbox form that persists on the page.-->
+    
+  <!--This is here just because I needed to produce some checkboxes atleast, I couldn't actually get the entire thing to work-->
+    <div>
+      <input id= "breakfast" type="checkbox" name="breakfast"/>
+      <label for="breakfast">Breakfast</label>
+    </div>
+    <div>
+      <input id= "lunch" type="checkbox" name="lunch">
+      <label for="Lunch">Lunch</label>
+    </div>
+    <div>
+      <input id= "Dinner" type="checkbox" name="Dinner">
+      <label for="Dinner">Dinner</label>
+    </div>
   {% endfor %}
 
 {% endblock content %}

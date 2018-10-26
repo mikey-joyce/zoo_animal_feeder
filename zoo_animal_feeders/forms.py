@@ -15,7 +15,6 @@ class AnimalForm(forms.ModelForm):
 		model = Animal
 		fields = ['name']
 		labels = {'name':''}
-		#widgets = {'name': forms.Textarea(attrs={'cols':40})}
 
 class ScheduleForm(forms.ModelForm):
 
@@ -23,3 +22,4 @@ class ScheduleForm(forms.ModelForm):
 		model = Schedule
 		fields = ['breakfast', 'lunch', 'dinner']
 		labels = {'breakfast':'breakfast','lunch':'lunch','dinner':'dinner'}
+
