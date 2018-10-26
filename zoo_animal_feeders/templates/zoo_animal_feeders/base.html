@@ -13,7 +13,7 @@
   	{% bootstrap_javascript %}
   </head>
   <body>
-  	<!--navbar-->
+  	<!--here is the navbar-->
   	<nav class="navbar navbar-default navbar-static-top">
   		<div class="container">
   			<div class="navbar-header">
@@ -30,6 +30,8 @@
   				<ul class="nav navbar-nav navbar-right">
   					{% if user.is_authenticated %}
   					  <li><a>Hello, {{ user.username }}.</a></li>
+              <!--didn't get to logging out users yet
+                <li><a href="{% url 'users:logout' %}">logout</a></li>-->
   					{% else %}
   					  <li><a href="{% url 'users:register' %}">register</a></li>
   					  <li><a href="{% url 'users:login' %}">log in</a></li>
